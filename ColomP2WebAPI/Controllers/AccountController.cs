@@ -19,7 +19,6 @@ using ColomP2WebAPI.Results;
 
 namespace ColomP2WebAPI.Controllers
 {
-    [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -47,6 +46,13 @@ namespace ColomP2WebAPI.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("UserId")]
+        public string GetUserId()
+        {
+            return User.Identity.GetUserId();
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
